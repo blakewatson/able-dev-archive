@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <title>Your first webpage with HTML and Netlify</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+
+  <body>
+    <nav>
+      <a href="/">&larr; Back to post list</a>
+    </nav>
+    
+    <article
+      class="post-29 post type-post status-publish format-standard hentry category-tutorial category-web-dev"
+    >
+      <h1>Your first webpage with HTML and&nbsp;Netlify</h1>
+
+      <p class="byline">
+        <span class="by">By</span>
+        Blake Watson · September 25, 2019
+      </p>
+
+      <p><em>This article is part of a series:</em></p>
+      <ul>
+        <li>
+          <em>Your first webpage with HTML and Netlify (you are here)</em>
+        </li>
+        <li>
+          <em
+            ><a href="/styling-your-first-webpage-with-css/"
+              >Styling your first webpage with CSS</a
+            ></em
+          >
+        </li>
+      </ul>
+      <p>
+        Ok, you have decided it would be cool if you knew how to code a webpage.
+        Now what? This article is going to take you from nothing to having your
+        own website on the internet. Provided you have a computer and an
+        internet connection, the following guide will get you online with your
+        very first webpage—for free.
+      </p>
+      <p><span id="more-29"></span></p>
+      <h2>Tools of the trade</h2>
+      <p>To get started, you need two things:</p>
+      <ul>
+        <li>A web browser</li>
+        <li>A text editor</li>
+      </ul>
+      <p>
+        Fortunately, essentially every computer comes with both of these! Modern
+        web browsers are pretty awesome so it doesn’t really matter which one
+        you choose. If you’re looking for a recommendation, I use and enjoy
+        <a href="https://www.mozilla.org/firefox/">Firefox</a>.
+      </p>
+      <p>
+        Although your computer does come with a text editor (like Notepad on
+        Windows or TextEdit on Mac), coding webpages is easier if you get a text
+        editor that’s made for coding. There are a lot of options in this space,
+        which I encourage you to explore when you’re ready. But I recommend you
+        download and install the free editor from Microsoft,
+        <a href="https://code.visualstudio.com/">Visual Studio Code</a> (I’ll
+        refer to it as VS Code).
+      </p>
+      <h2>The power to publish</h2>
+      <p>
+        The next thing to consider is what you want to say on your website. What
+        do you want it to be about? We live in an amazing time when just about
+        anyone can publish something and make it available to everyone. This is
+        the number one reason I think everyone should have their own website.
+      </p>
+      <p>
+        Use whatever writing tool you’re comfortable with and literally write
+        down some content for your website.
+      </p>
+      <p>If you need some guidance, try this:</p>
+      <ul>
+        <li>Write a short paragraph about yourself.</li>
+        <li>
+          Make a list of your favorite interests or TV shows or music (or all of
+          the above!).
+        </li>
+        <li>Write down one goal that you have.</li>
+      </ul>
+      <p>
+        Of course, feel free to write less or more. You can have several
+        sections on the page if you would like, each with its own heading. You
+        may even decide that you need multiple pages. That’s cool, too.
+      </p>
+      <h2>A website is just files and folders</h2>
+      <p>
+        Most of the big websites that you use every day are more complicated
+        than that. But at its simplest, a website is just a collection of files
+        that are linked together.
+      </p>
+      <p>
+        So your first step needs to be to create a folder on your computer.
+        Usually, you use your web browser to connect to websites over the
+        internet. But you can actually just open a website from your computer if
+        you want—and that’s what we want to do here. We’re going to work on our
+        website on our own computer before uploading it to a server on the
+        internet.
+      </p>
+      <p>
+        Create a folder somewhere on your computer. Name it, for example,
+        <code>my-website</code>.
+      </p>
+      <p>
+        Now we are going to create a file for our homepage. Create a new file
+        inside the folder you just created. By convention, the name of our
+        homepage file should be <code>index.html</code>.
+      </p>
+      <p>
+        Open that file in your web browser
+        <sup id="fnref-29-1"
+          ><a href="#fn-29-1" class="jetpack-footnote">1</a></sup
+        >. You should see a bright white page—an empty canvas. Don’t worry,
+        we’re about to fill it in.
+      </p>
+      <h2>Writing your first HTML</h2>
+      <p>
+        If you chose Visual Studio Code, go ahead and open it. Otherwise use
+        whatever text editor you prefer. If you’re using a different editor,
+        your steps may differ slightly from those in this guide.
+      </p>
+      <p>
+        Once you start VS Code, click the “Open Folder…” link. Open the
+        <code>my-website</code> folder you created earlier. You should see your
+        file in the sidebar. Click it to open it.
+      </p>
+      <p>The first thing we’re going to write is:</p>
+      <pre><code class="language-html hljs xml">Hello world
+</code></pre>
+      <p>
+        Save it and open it in your browser. Congratulations, you made a
+        webpage!
+      </p>
+      <p>
+        The browser displays this ordinary text because we haven’t told the
+        browser anything about this text. We need to mark it up.
+      </p>
+      <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello world<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+</code></pre>
+      <p>
+        Make this change and refresh your browser. The text should now be styled
+        bold and a good bit larger. That’s because we’ve used HTML to describe
+        this piece of text as a heading—specifically, a heading level 1.
+      </p>
+      <p>
+        HTML uses <em>tags</em> to describe content. In this case, we’ve wrapped
+        the text, “Hello world,” with the <code>&lt;h1&gt;</code> tag. Notice
+        that to close the tag, it’s written the same way but with a
+        <code>/</code> right before the tag name.
+      </p>
+      <h2>Tagging your content</h2>
+      <p>
+        “Hello world,” was just a test. Obviously, we would like to use our own
+        content. Copy and paste your content from your writing tool into your
+        <code>index.html</code> file. Now you want to use tags to describe your
+        content to the browser. There are over a hundred tags in HTML. But
+        knowing just a handful of them is plenty enough to get you started.
+      </p>
+      <p>
+        For example, you can use the <code>&lt;h1&gt;</code> tag we used earlier
+        for the main heading of your website.
+      </p>
+      <p>
+        If you wrote an intro paragraph, you can surround it with the
+        <code>&lt;p&gt;</code> tag (“p” for “paragraph”). Don’t forget to put
+        the <code>/</code> in the closing tag like so: <code>&lt;/p&gt;</code>.
+      </p>
+      <p>If you included a list of any kind, you can mark it up like this:</p>
+      <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>My first thing<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Another thing<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>The last thing<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+      <p>
+        This is an example of nested tags. Each <em>list item</em> is marked up
+        using the <code>&lt;li&gt;</code> tag. All three list items are wrapped
+        by the <code>&lt;ul&gt;</code> tag, forming an <em>unordered list</em>,
+        which is just HTML-speak for a bulleted list. If we wanted them to be
+        numbered—that is, an <em>ordered list</em>—we could use the
+        <code>&lt;ol&gt;</code> tag.
+      </p>
+      <p>Here’s a very basic example:</p>
+      <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>My awesome website<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>My name is Blake. I enjoy making websites and writing articles. I think everybody should have a personal homepage.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Favorite board games<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Dungeons &amp; Dragons<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Risk<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Monopoly<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Favorite TV shows<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Stranger Things<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Cheers<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Game of Thrones<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+      <p>When rendered in the browser, it looks like this:</p>
+      <p>
+        <img
+          src="/assets/uploads/2019/09/Screen-Shot-2019-09-24-at-10.58.43-PM-1024x474.png"
+          alt=""
+          class="alignnone size-large wp-image-31"
+          srcset="
+            /assets/uploads/2019/09/Screen-Shot-2019-09-24-at-10.58.43-PM-1024x474.png 1024w,
+            /assets/uploads/2019/09/Screen-Shot-2019-09-24-at-10.58.43-PM-300x139.png   300w,
+            /assets/uploads/2019/09/Screen-Shot-2019-09-24-at-10.58.43-PM-768x355.png   768w
+          "
+          sizes="(max-width: 1024px) 100vw, 1024px"
+          width="1024"
+          height="474"
+        />
+      </p>
+      <h2>The head and the body</h2>
+      <p>
+        Our HTML document isn’t technically correct. It’s missing some useful
+        information about the document itself. For example, take a look at the
+        title that is displayed in the browser tab. It’s pretty ugly and
+        useless.
+      </p>
+      <p>
+        An HTML document actually consists of a few parts. First, every HTML
+        file should start with the following line of code:
+      </p>
+      <pre><code class="language-html hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+</code></pre>
+      <p>This lets the browser know that this is an HTML file.</p>
+      <p>
+        Following that, there’s the <code>&lt;html&gt;</code> tag, which
+        contains two tags: <code>&lt;head&gt;</code> and
+        <code>&lt;body&gt;</code>. The <code>&lt;head&gt;</code> tag is for
+        information about the document that is invisible to the user. The
+        <code>&lt;body&gt;</code> tag is for the page content.
+      </p>
+      <p>Our document structure should look like this:</p>
+      <pre><code class="language-html hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        ...page content...
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+      <p>
+        We can change that pesky tab title by adding one to our
+        <code>&lt;head&gt;</code> tag like this:
+      </p>
+      <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My awesome website<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+</code></pre>
+      <p>
+        And as a good practice, we should tell the browser what character set we
+        are using in the document (which, unless you are purposely doing
+        something else, should be <strong>utf-8</strong>). We can do it like
+        this:
+      </p>
+      <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My awesome website<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+</code></pre>
+      <p>
+        You’ve just met the <code>&lt;meta&gt;</code> tag, which is one of the
+        tags in HTML that doesn’t need to be closed because it doesn’t contain
+        content. That said, HTML tags can have <em>attributes</em>. The most
+        famous one of those is probably the one that is required to make a
+        clickable link, the <code>href</code> attribute on the <em>anchor</em>,
+        or <code>&lt;a&gt;</code>, tag.
+      </p>
+      <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://able-dev.com"</span>&gt;</span>This is a link to my website<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre>
+      <p>Have yourself a cookie, because you just coded your first webpage.</p>
+      <p>
+        For reference, your entire <code>index.html</code> should look something
+        similar to this:
+      </p>
+      <pre><code class="language-html hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My awesome website<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>My awesome website<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>My name is Blake. I enjoy making websites and writing articles. I think everybody should have a personal homepage.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Favorite board games<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Dungeons &amp; Dragons<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Risk<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Monopoly<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Favorite TV shows<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Stranger Things<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Cheers<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Game of Thrones<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+      <h2>Adding pages to your website</h2>
+      <p>
+        It’s totally fine for your website to consist of only one page. But
+        chances are that you will want more. Let’s create a journal page and set
+        up <em>navigation</em> between them.
+      </p>
+      <p>
+        First, create a new file in your <code>my-website</code> folder called
+        <code>journal.html</code>. Instead of typing the whole page structure
+        out, let’s copy and paste our homepage code over to this file and empty
+        out the <code>&lt;body&gt;</code> tag. It should look something like
+        this:
+      </p>
+      <pre><code class="language-html hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My awesome website<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+      <p>Let’s make a heading and our first entry:</p>
+      <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Journal<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>My first entry<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">time</span> <span class="hljs-attr">datetime</span>=<span class="hljs-string">"2019-09-25"</span>&gt;</span>September 25, 2019<span class="hljs-tag">&lt;/<span class="hljs-name">time</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>I'm having a blast learning HTML and setting up my first website!<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+</code></pre>
+      <p>
+        We are introducing some new tags. We have several tags that we’re saying
+        makes up an <code>&lt;article&gt;</code>. We’re also using a tag to mark
+        up the date of the article—the <code>&lt;time&gt;</code> tag. Inside the
+        tag it contains the nice human readable date. But it also has a
+        <code>datetime</code> attribute that contains a machine readable
+        version.
+      </p>
+      <p>
+        Now that we have a journal page, we need to add a way to get to it from
+        our homepage. We’ll add a navigation list. Let’s put it right underneath
+        the <code>&lt;h1&gt;</code> in <code>index.html</code>:
+      </p>
+      <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"index.html"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"journal.html"</span>&gt;</span>Journal<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+      <p>
+        Okay cool, we’ve created a navigation list. We can just copy that in
+        paste it right under the <code>&lt;h1&gt;</code> in
+        <code>journal.html</code>. With this navigation list on both pages,
+        visitors to your website will have a way to move back and forth.
+      </p>
+      <p>
+        Your website isn’t doing much good just sitting on your computer. It’s
+        time to get that thing on the internet!
+      </p>
+      <h2>Hosting your website</h2>
+      <p>
+        <em>Hosting</em> your website refers to putting your HTML files on a web
+        server. There are a lot of options here, but for ease of use and cost,
+        we’re going to use <a href="https://www.netlify.com/">Netlify</a>.
+      </p>
+      <p>
+        Go ahead and
+        <a href="https://app.netlify.com/signup">create an account</a> at
+        Netlify. Once you are logged in, make sure you are on the
+        <strong>Sites</strong> tab. Toward the bottom of the page you should see
+        an area where you can drag and drop your site folder. Go ahead and do
+        that.
+      </p>
+      <p>
+        You will see that your website gets uploaded and assigned a randomized
+        URL. Your site is now live! If you want, you can click the
+        <strong>Site Settings</strong> button and change the Netlify address to
+        something memorable. For example I changed mine to
+        <a href="https://able-dev-example.netlify.com/"
+          >https://able-dev-example.netlify.com/</a
+        >.
+      </p>
+      <p>
+        You can also follow the instructions for adding a custom domain name.
+      </p>
+      <h2>You did it!</h2>
+      <p>
+        Take a moment to appreciate what you’ve accomplished. You started with a
+        blank slate. You wrote some content and marked it up with HTML. You made
+        two pages and linked them together. Then you uploaded your site to a web
+        host. Your website is now live for anyone to visit.
+      </p>
+      <p>
+        There’s a lot that this guide left out. For example, our website looks
+        pretty plain. Wouldn’t it be cool if we added colors and other styles?
+        That’s for another day (but if you’re feeling adventurous, do a web
+        search for “CSS”). Feel free to continue to work on your site
+        <em>locally</em> on your computer. When you’re ready to upload your new
+        changes, go to your site’s dashboard page in Netlify and click on the
+        <strong>Deploys</strong> tab. You can drag and drop your folder there to
+        replace the existing site with your updated one.
+      </p>
+      <p>Have fun with your new powers—and only use them for good!</p>
+      <div class="footnotes">
+        <hr />
+        <ol>
+          <li id="fn-29-1">
+            On Mac, you can drag the file to your browser’s icon on the dock. On
+            most systems you can also use the <em>File</em> menu.&nbsp;<a
+              href="#fnref-29-1"
+              >↩</a
+            >
+          </li>
+        </ol>
+      </div>
+
+      <div class="author-bio">
+        <h2 class="author-title">About the author</h2>
+        <p>
+          Blake Watson is a web developer creating bugs at MRI Technologies. He
+          created Able Dev to promote programming and software development as a
+          career choice for people with disabilities. You can find him on
+          Twitter as <a href="https://twitter.com/blakewatson">@blakewatson</a>.
+        </p>
+        <p class="author-url"><a href="https://blakewatson.com/">Website</a></p>
+      </div>
+    </article>
+  </body>
+</html>

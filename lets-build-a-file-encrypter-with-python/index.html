@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <title>Let’s build a file encrypter with Python</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+
+  <body>
+    <nav>
+      <a href="/">&larr; Back to post list</a>
+    </nav>
+    
+    <main id="content">
+      <article
+        class="post-90 post type-post status-publish format-standard hentry category-python category-tutorial"
+      >
+        <h1>Let’s build a file encrypter with&nbsp;Python</h1>
+
+        <p class="byline">
+          <span class="by">By</span>
+          Nic Metras · January 19, 2020
+        </p>
+
+        <p>
+          Today we’re going to take a bit of a detour from web development and
+          head more towards the realm of software development, while dunking our
+          toes into the world of intrigue that is cryptography and information
+          security. I used a lot of buzzwords there but do not be alarmed! I
+          intend this tutorial to be accessible to all programming levels,
+          however having prior knowledge of Python or another object oriented
+          programming language, and knowing your way around the command line,
+          will make it a lot easier to follow along. Even if this sounds all
+          over your head, I encourage you to continue reading. There is no
+          better way to learn than to tackle a hard problem, deconstruct it, and
+          identify the what you know and what you don’t know. If my computer
+          science degree taught me anything, it’s that Google is my best friend.
+          With that being said, let’s get this started!
+        </p>
+        <p><span id="more-90"></span></p>
+        <h2>Encryption</h2>
+        <p>
+          Let’s start by defining a key concept here: <em>encryption</em>.
+          Encryption is the process of altering information or data into a form
+          that is unrecognizable from its original state. It needs to be a
+          reversible process (called <em>decryption</em>) and should make it
+          hard for unauthorized parties to obtain the information you are
+          encrypting. Encryption algorithms take an input, referred to as
+          <strong>plaintext</strong>, which is the data you want to encrypt, and
+          outputs <strong>ciphertext</strong>, which should look like a garbled
+          up mess if everything was successful.
+        </p>
+        <p>
+          All algorithms use a <strong>key</strong> which is just a long string
+          of bits (1’s and 0’s) to handle encryption and decryption. This key
+          works similarly to a physical key in real life. Just like your house
+          key locks and unlocks your door, an encryption key locks and unlocks
+          data. There are many kinds of encryption algorithms out there that use
+          different sized keys. Typically the larger the key size is, the harder
+          the encryption is for someone to break or hack. Check out this
+          <a href="https://www.youtube.com/watch?v=dut9EnbFym0"
+            >video about encryption</a
+          >
+          that does a way better job of explaining how it works, without going
+          too in depth.
+        </p>
+        <p>
+          The encryption algorithm we’ll be using today is called AES. It stands
+          for Advanced Encryption Standard and was adopted by the U. S.
+          government in 2001 as the standard to encrypt electronic data. We’ll
+          be encrypting with a 256-bit key derived with PBKDF2, which stands for
+          Password-Based Key Derivation Function. There is a lot of jargon in
+          that sentence, but simply put we will be using a commonly used
+          encryption technique with a key we create with a password that we set.
+        </p>
+        <h2>What you’ll need</h2>
+        <p>
+          In this tutorial we will be coding in Python 3 and using the
+          <a href="https://pypi.org/project/pycryptodome/">Pycryptodome</a>
+          library. Pycryptodome is a Python package that implements a lot of
+          different cryptographic functions. This is awesome because we get to
+          play around with a bunch of different encryption algorithms and tools
+          without having to code them from scratch.
+        </p>
+        <p>
+          You are going to need to have Python installed on your computer and
+          any text editor you are comfortable using. If you are on Windows 10
+          and need help getting set up, follow this
+          <a
+            href="https://docs.microsoft.com/en-us/windows/python/web-frameworks"
+            >Guide</a
+          >
+          that will take you through installing the Windows Subsystem for Linux
+          (WSL) and get you up and running with python. Just complete up through
+          the <strong>“Run a simple Python program”</strong> section. The
+          Windows Subsystem for Linux (WSL) is a relatively new Windows 10
+          feature that allows you to run Linux programs natively in a Windows
+          version of the Bash shell. When you install it you get an awesome
+          Ubuntu-based command line terminal where you can do all your
+          development. I recommend doing this tutorial with WSL since it’s what
+          I developed this program in and because I believe it’s a really good
+          way to start easing yourself into the Linux ecosystem, which is
+          important to learn if you want to get into web or software
+          development.
+        </p>
+        <h3>Mac Users</h3>
+        <p>
+          macOS should come with python 2.7 out of the box. We can install
+          python 3 using Homebrew, Mac’s package manager. If you don’t have
+          Homebrew installed on your machine, open up your terminal and run:
+        </p>
+        <pre><code class="hljs sql">/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/<span class="hljs-keyword">install</span>/<span class="hljs-keyword">master</span>/<span class="hljs-keyword">install</span>)<span class="hljs-string">"
+</span></code></pre>
+        <p>
+          That should get Homebrew installed. Now let’s use it to get Python 3.
+          In the terminal run:
+        </p>
+        <pre><code class="hljs sql">brew <span class="hljs-keyword">install</span> python3
+</code></pre>
+        <p>
+          This will tell Homebrew to grab the latest version of python and you
+          should be good to go on with the rest of the tutorial.
+        </p>
+        <p>
+          Once you have your development environment ready to go, type the
+          following into your command prompt and hit enter:
+        </p>
+        <pre><code class="hljs sql">pip3 <span class="hljs-keyword">install</span> pycryptodome
+</code></pre>
+        <p>
+          This command invokes pip, the python package manager, and tells it to
+          go search for and install pycryptodome and any dependencies so we can
+          start coding some awesome encryption scripts. Once pip finishes
+          installation we will be ready to start.
+        </p>
+        <p>
+          Now, with your text editor of choice, let’s create a new file. I named
+          mine <code>crypto.py</code>.
+        </p>
+        <h2>The encryption functions</h2>
+        <p>
+          Below, I’m going to start defining some functions for our encryption,
+          then I’ll explain what they do line-by-line.
+        </p>
+        <pre><code class="language-python hljs"><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES
+<span class="hljs-keyword">from</span> Crypto <span class="hljs-keyword">import</span> Random
+<span class="hljs-keyword">from</span> Crypto.Protocol.KDF <span class="hljs-keyword">import</span> PBKDF2
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">encrypt</span><span class="hljs-params">(text, key)</span>:</span>
+    pad = <span class="hljs-keyword">lambda</span> s: s + <span class="hljs-string">b"\0"</span> * (AES.block_size - len(s) % AES.block_size)
+    text = pad(text)
+    initialization = Random.new().read(<span class="hljs-number">16</span>)
+    cipher = AES.new(key, AES.MODE_CBC, initialization)
+    <span class="hljs-keyword">return</span> initialization + cipher.encrypt(text)
+</code></pre>
+        <p>
+          In the first four lines we are importing all the external packages we
+          will be using throughout the program. From the Pycryptodome package we
+          are importing the <code>AES</code>, <code>PBKDF2</code>, and
+          <code>Random</code> functions. We will also be importing the
+          <code>os</code> package which should already come with your Python
+          installation.
+        </p>
+        <p>
+          Next we define our main encryption function. The function takes two
+          inputs: the text or data we want to encrypt and a key used for
+          encryption. We handle key derivation a little later. In this function
+          we need to handle a few important things. First we need to pad the
+          text to ensure the size of the data is a multiple of the block size of
+          the algorithm. The block size of AES is 16 bytes so our data must be
+          padded so that it is a multiple of 16 bytes. You can pad your data
+          with any character. In this example we are padding with null
+          character, “\0”.
+        </p>
+        <p>
+          Second we create our initialization vector (IV). An IV is a string of
+          random bits that is used to mix in with your data during encryption to
+          make it harder to crack. Here we create a new variable called
+          initialization and pass 16 random bytes into it.
+        </p>
+        <p>
+          Now we can create our AES encryption object. Here I name the object
+          <code>cipher</code>, call the Pycryptodome <code>AES</code> function
+          and pass it our yet-to-be-generated key, tell it we want CBC mode and
+          finally pass it our IV. Don’t worry about understanding CBC mode for
+          now. We are saying we want to use Cipher Block Chaining. CBC is a bit
+          of an advanced topic to try to explain in brevity here, but I
+          encourage you to research on your own if interested.
+        </p>
+        <p>
+          Our encryption object is now constructed! Next we finish this function
+          off by returning the IV + the ciphertext which we get by running
+          <code>cipher.encrypt</code> on our padded text.
+        </p>
+        <h2>Encrypting files</h2>
+        <p>
+          OK, so we just wrote a function that encrypts strings, but now we want
+          to encrypt files. How can we do this? We need to write a function that
+          reads a file, saves its contents as a string and then run our
+          encryption function on it. Then we write that encrypted string to a
+          new file and, voila, file encryption! Lets define that function below:
+        </p>
+        <pre><code class="language-python hljs"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">file_encrypt</span><span class="hljs-params">(file_name, key)</span>:</span>
+    <span class="hljs-keyword">with</span> open(file_name, <span class="hljs-string">'rb'</span>) <span class="hljs-keyword">as</span> input_file:
+        plaintext = input_file.read()
+    encrypted_text = encrypt(plaintext, key)
+    <span class="hljs-keyword">with</span> open(file_name + <span class="hljs-string">".enc"</span>, <span class="hljs-string">'wb'</span>) <span class="hljs-keyword">as</span> output_file:
+        output_file.write(encrypted_text)
+    os.remove(file_name)
+</code></pre>
+        <p>
+          This function also takes two parameters: a string that will be the
+          name of the file we wish to encrypt and, again, the key that we will
+          generate shortly. First we open the file, read its contents, and run
+          our previously defined encryption function on it. Then we create a new
+          file and write the encrypted ciphertext to it. We save the file with
+          the same file name as the original but with an added
+          <code>.enc</code> extension to indicate to us that it is encrypted.
+          Now all that is left to do is to delete the original unencrypted file
+          from our directory using the <code>os.remove()</code> function.
+        </p>
+        <h2>The decryption functions</h2>
+        <p>
+          We now have a mechanism to “lock” files, but what good is a lock that
+          can not be unlocked? As I explained earlier, encryption needs to be a
+          reversible process. Let’s build a pair of functions that will allow us
+          to decrypt our files.
+        </p>
+        <pre><code class="language-python hljs"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">decrypt</span><span class="hljs-params">(encrypted_text, key)</span>:</span>
+    initialization = encrypted_text[:AES.block_size]
+    cipher = AES.new(key, AES.MODE_CBC, initialization)
+    plaintext = cipher.decrypt(encrypted_text[AES.block_size:])
+    <span class="hljs-keyword">return</span> plaintext.rstrip(<span class="hljs-string">b"\0"</span>)
+</code></pre>
+        <p>
+          Here we take two parameters: our encrypted text and the key we used
+          for encryption. It is very important we pass in the same the key we
+          previously used to encrypt or python will throw us an error when we
+          run the code.
+        </p>
+        <p>
+          The first thing we need to do is identify our IV from our encrypted
+          text. This is easy since we saved it at the front of the string. Since
+          we know its size, we can perform a string slice only copying the first
+          16 bytes of the string (the AES block size).
+        </p>
+        <p>
+          Now that we have our IV we can create our AES object again and use it
+          to decrypt the message omitting the first 16 bytes. The result is the
+          plaintext padded with the null characters(“\0”). Finally we can return
+          the original text by stripping off the null characters.
+        </p>
+        <h2>Decrypting files</h2>
+        <p>
+          It turns out that decrypting files is just as straightforward as
+          encrypting them. We perform the same basic steps. First we read the
+          encrypted text, pass it to our decryption function and write the
+          plaintext output to a new file.
+        </p>
+        <pre><code class="language-python hljs"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">file_decrypt</span><span class="hljs-params">(file_name, key)</span>:</span>
+    <span class="hljs-keyword">with</span> open(file_name, <span class="hljs-string">'rb'</span>) <span class="hljs-keyword">as</span> input_file:
+        encrypted_text = input_file.read()
+    decrypted_text = decrypt(encrypted_text, key)
+    <span class="hljs-keyword">with</span> open(file_name[:<span class="hljs-number">-4</span>], <span class="hljs-string">'wb'</span>) <span class="hljs-keyword">as</span> output_file:
+        output_file.write(decrypted_text)
+    os.remove(file_name)
+</code></pre>
+        <h2>Generating keys</h2>
+        <p>
+          Finally the moment you’ve all been waiting for… key derivation! Thus
+          far we’ve built a functioning lock but we have no key to lock it with.
+          There are many key derivation functions we can use that offer various
+          trade-offs between speed and security. If an algorithm generates a key
+          too quickly, it could be easily cracked. By the same token, if you
+          choose an algorithm that produces a very secure key, then it may be
+          too resource-intensive to be used practically. For our purposes the
+          <code>PBKDF2</code> algorithm offers a good speed-vs-security balance.
+          This algorithm will give us a 32 byte (256 bit) key given a
+          user-supplied password with salt. Yes, I said salt and, no, this
+          didn’t turn into a recipe blog post. In cryptography, salt is a random
+          string of bytes that is used by the algorithm that makes it more
+          difficult for your password to be cracked. It also allows multiple
+          users to enter the same password and generate unique keys. Ideally you
+          should generate a unique salt for every user to increase password
+          security. For our purposes, however, we are using a “fixed” or
+          hard-coded salt. This means we will be using the same salt for every
+          key generated. Again, this is not safe and should not be done for
+          serious implementations. Do not use this program to encrypt files you
+          actually need to keep 100% safe. This tutorial is for educational
+          purposes only.
+        </p>
+        <p>Now let’s write our key generator!</p>
+        <pre><code class="language-python hljs"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generate_key</span><span class="hljs-params">(password)</span>:</span>
+    salt = <span class="hljs-string">b'\x83\xdb\xb9\xd3\xdc"\x1e\x0ee"\x0c\xf0=5\xab_\x18\xd7\xd2\x98\x92Q.\xbd\x9cK\x96\x93-J\x08\xe0'</span>
+    <span class="hljs-keyword">return</span> PBKDF2(password, salt, dkLen=<span class="hljs-number">32</span>)
+</code></pre>
+        <p>
+          This probably didn’t need its own user defined function but I wrote it
+          this way to make what we’re doing a little more clear. Pycryptodome
+          does all the heavy lifting for us here. All we have to do is supply
+          the password in the form of a string and the salt. You can generate
+          your own salt by opening your python console and typing the following
+          commands:
+        </p>
+        <pre><code class="language-python hljs"><span class="hljs-keyword">from</span> Crypto.Random <span class="hljs-keyword">import</span> get_random_bytes
+get_random_bytes(<span class="hljs-number">32</span>)
+</code></pre>
+        <p>
+          That command will generate a random byte string based on the length
+          you specify, in this case, 32 bytes. Now all we do is feed this to
+          Pycryptodome’s <code>PBKDF2</code> function and return the output
+          which should be a 32 byte (256 bit) key!
+        </p>
+        <h2>Finishing touches</h2>
+        <p>
+          If you have been following along this far go ahead and pat yourself on
+          the back. We just made the inner workings of a pretty sweet encrypting
+          tool! Now all we need to do is make a simple driver to test it all
+          out.
+        </p>
+        <p>Here is the completed code:</p>
+        <pre><code class="language-python hljs"><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES
+<span class="hljs-keyword">from</span> Crypto <span class="hljs-keyword">import</span> Random
+<span class="hljs-keyword">from</span> Crypto.Protocol.KDF <span class="hljs-keyword">import</span> PBKDF2
+<span class="hljs-keyword">import</span> os
+
+<span class="hljs-comment"># *** Encryption Functions ***</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">encrypt</span><span class="hljs-params">(text, key, key_size = <span class="hljs-number">256</span>)</span>:</span>
+    pad = <span class="hljs-keyword">lambda</span> s: s + <span class="hljs-string">b"\0"</span> * (AES.block_size - len(s) % AES.block_size)
+    text = pad(text)
+    initialization = Random.new().read(<span class="hljs-number">16</span>)
+    cipher = AES.new(key, AES.MODE_CBC, initialization)
+    <span class="hljs-keyword">return</span> initialization + cipher.encrypt(text)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">file_encrypt</span><span class="hljs-params">(file_name, key)</span>:</span>
+    <span class="hljs-keyword">with</span> open(file_name, <span class="hljs-string">'rb'</span>) <span class="hljs-keyword">as</span> input_file:
+        plaintext = input_file.read()
+    encrypted_text = encrypt(plaintext, key)
+    <span class="hljs-keyword">with</span> open(file_name + <span class="hljs-string">".enc"</span>, <span class="hljs-string">'wb'</span>) <span class="hljs-keyword">as</span> output_file:
+        output_file.write(encrypted_text)
+    os.remove(file_name)
+
+<span class="hljs-comment"># *** Decryption Functions ***</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">decrypt</span><span class="hljs-params">(encrypted_text, key)</span>:</span>
+    initialization = encrypted_text[:AES.block_size]
+    cipher = AES.new(key, AES.MODE_CBC, initialization)
+    plaintext = cipher.decrypt(encrypted_text[AES.block_size:])
+    <span class="hljs-keyword">return</span> plaintext.rstrip(<span class="hljs-string">b"\0"</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">file_decrypt</span><span class="hljs-params">(file_name, key)</span>:</span>
+    <span class="hljs-keyword">with</span> open(file_name, <span class="hljs-string">'rb'</span>) <span class="hljs-keyword">as</span> input_file:
+        encrypted_text = input_file.read()
+    decrypted_text = decrypt(encrypted_text, key)
+    <span class="hljs-keyword">with</span> open(file_name[:<span class="hljs-number">-4</span>], <span class="hljs-string">'wb'</span>) <span class="hljs-keyword">as</span> output_file:
+        output_file.write(decrypted_text)
+    os.remove(file_name)
+
+<span class="hljs-comment"># This function takes an alphanumeric string as a password and passes it to pycryptodome's PBKDF2 </span>
+<span class="hljs-comment"># algorithm to generate an encryption key </span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generate_key</span><span class="hljs-params">(password)</span>:</span>
+    salt = <span class="hljs-string">b'\x83\xdb\xb9\xd3\xdc"\x1e\x0ee"\x0c\xf0=5\xab_\x18\xd7\xd2\x98\x92Q.\xbd\x9cK\x96\x93-J\x08\xe0'</span>
+    <span class="hljs-keyword">return</span> PBKDF2(password, salt, dkLen=<span class="hljs-number">32</span>)
+
+secretfile = <span class="hljs-string">"top_secret.txt"</span>
+
+password = str(input(<span class="hljs-string">"Enter a password for encryption:"</span>))
+key = generate_key(password)
+
+option = int(input(<span class="hljs-string">"Enter 1 to encrypt file.\nEnter 2 to decrypt file.\nSelection:"</span>))
+<span class="hljs-keyword">if</span> option == <span class="hljs-number">1</span>:
+    file_encrypt(secretfile, key)
+    print(<span class="hljs-string">"file encrypted!"</span>)
+
+<span class="hljs-keyword">elif</span> option == <span class="hljs-number">2</span>:
+    encrypted = secretfile + <span class="hljs-string">".enc"</span>
+    file_decrypt(encrypted, key)
+    print(<span class="hljs-string">"file decrypted!"</span>)
+</code></pre>
+        <p>
+          At the very end I included a simple test to see it all in action. The
+          string <code>secretfile</code> contains the name of the file you want
+          to encrypt.
+        </p>
+        <p>
+          To run the code from the command line make sure you are in the
+          directory the file is located in and run the following command:
+          <code>python crypto.py</code>.
+        </p>
+        <p>
+          If you have older versions of python installed, you may have to run
+          <code>python3 crypto.py</code> to specify we want to use Python 3.
+        </p>
+        <p>
+          Feel free to modify the code in any way you want! Remember this code
+          isn’t 100% safe, do not use it to secure sensitive documents or
+          anything you do not want to possibly become corrupted!
+        </p>
+        <p>
+          Great job sticking with the tutorial and seeing it through to the end!
+          I hope you learned a little bit about how encryption works and that I
+          was able to pique your interest in cryptography and information
+          security. It’s a really promising career path that is in high demand.
+          I encourage you to do a little research and come up with ways to make
+          our code more secure. Maybe look into password hashing and ways to
+          validate that the user entered the correct password. Well that’s
+          enough out of me. Thanks for reading and catch you next time!
+        </p>
+
+        <div class="author-bio">
+          <h2 class="author-title">About the author</h2>
+          <p>
+            Nic Metras is a recent Computer Science grad from San Diego, CA.
+            When he isn't in front of a keyboard you might be able to find him
+            enjoying a refreshing beverage from any number of craft breweries!
+          </p>
+          <p class="author-url">
+            <a href="https://twitter.com/NicMetras">Website</a>
+          </p>
+        </div>
+        <p class="cat-list"></p>
+      </article>
+    </main>
+  </body>
+</html>

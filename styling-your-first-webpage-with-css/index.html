@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <title>Styling your first webpage with CSS</title>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+
+  <body>
+    <nav>
+      <a href="/">&larr; Back to post list</a>
+    </nav>
+    
+    <main id="content">
+      <article
+        class="post-67 post type-post status-publish format-standard hentry category-design category-tutorial category-web-dev"
+      >
+        <h1>Styling your first webpage with&nbsp;CSS</h1>
+
+        <p class="byline">
+          <span class="by">By</span>
+          Blake Watson · January 13, 2020
+        </p>
+
+        <p><em>This article is part of a series:</em></p>
+        <ul>
+          <li>
+            <em
+              ><a href="/your-first-webpage-with-html-and-netlify/"
+                >Your first webpage with HTML and Netlify</a
+              ></em
+            >
+          </li>
+          <li><em>Styling your first webpage with CSS</em> (you are here)</li>
+        </ul>
+        <p>
+          If you’ve followed along, then you’ve created your very own webpage
+          using HTML and put it on the web using
+          <a href="https://www.netlify.com/">Netlify</a>. You probably noticed
+          that it’s very plain-looking. That’s because we haven’t specified how
+          anything should look. By default, the browser applies some basic
+          styles—headings are big and bold, lists are indented, links are blue
+          and underlined.
+        </p>
+        <p>
+          These default styles get the point across and make the site usable,
+          but we could definitely make some improvements and use our own sense
+          of style to add some personality. Design on the web is a big,
+          wonderful world, with many resources to help yourself learn and
+          improve. Here’s a
+          <a href="https://hellowebbooks.com/learn-design/"
+            >great book on web design</a
+          >
+          made for non-designers.
+        </p>
+        <p><span id="more-67"></span></p>
+        <p>
+          That said, for this article, we’re going to keep things simple and
+          focus more on how to write CSS than how to create a great design. As
+          you get better at HTML and CSS, you will be able to do more and you
+          will need to follow design principles to keep your websites from
+          becoming cluttered and chaotic. Fortunately, our site only has a
+          little content.
+        </p>
+        <p>
+          As a reminder, here’s an example of the
+          <a href="https://able-dev-example.netlify.com/">unstyled website</a>
+          we created in the last article.
+        </p>
+        <p>
+          If you want see what styles we’ll be adding to this page, check out
+          the
+          <a href="https://able-dev-example-css.netlify.com/"
+            >styled version of the website</a
+          >.
+        </p>
+        <h2>The <code>&lt;style&gt;</code> tag</h2>
+        <p>
+          CSS, or <em>Cascading Style Sheets</em>, is the language that we use
+          to describe the appearance of our webpages. Any CSS styles that we add
+          get applied to our webpage <em>in addition</em> to the basic styling
+          that the web browser has already supplied.
+        </p>
+        <p>
+          Where do we write CSS? Well, remember that our
+          <code>index.html</code> document contains a
+          <code>&lt;head&gt;</code> section that has information about the page
+          that is invisible to the user.
+        </p>
+        <pre><code class="language-html hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My awesome website<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>My awesome website<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"menu"</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"index.html"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"journal.html"</span>&gt;</span>Journal<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>My name is Blake. I enjoy making websites and writing articles. I think everybody should have a personal homepage.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Favorite board games<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Dungeons &amp; Dragons<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Risk<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Monopoly<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Favorite TV shows<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Stranger Things<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Cheers<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Game of Thrones<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+        <p>
+          We can add a <code>&lt;style&gt;</code> tag inside the
+          <code>&lt;head&gt;</code> tag that will contain all of our CSS code.
+        </p>
+        <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My awesome website<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+        ..<span class="hljs-selector-class">.CSS</span> <span class="hljs-selector-tag">code</span> <span class="hljs-selector-tag">goes</span> <span class="hljs-selector-tag">here</span>...
+    </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+</code></pre>
+        <p>Great, let’s write our first CSS rule.</p>
+        <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+    <span class="hljs-selector-tag">body</span> {
+        <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Gill Sans"</span>, sans-serif;
+    }
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+</code></pre>
+        <p>
+          This rule changes the font of everything inside the
+          <code>&lt;body&gt;</code> tag to Gill Sans, if available on the user’s
+          device. If not, it tells the browser to use a default sans-serif font.
+          <sup id="fnref-67-1"
+            ><a href="#fn-67-1" class="jetpack-footnote">1</a></sup
+          >
+        </p>
+        <p>
+          Save the file and open it up in a web browser (File &gt; Open File…).
+        </p>
+        <h2>Anatomy of a CSS rule</h2>
+        <p>
+          Let’s look a little more closely at what we did in that example.
+          Here’s the code again (from now on I’m omitting the
+          <code>&lt;style&gt;</code> tag in these samples, but that is where the
+          CSS code lives for now).
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">body</span> {
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Gill Sans"</span>, sans-serif;
+}
+</code></pre>
+        <p>
+          That first bit, <code>body</code>, is called a <em>selector</em>. You
+          might say it <em>selects</em> the parts of your page you wish to
+          style.
+        </p>
+        <p>
+          The line inside the braces (<code>{}</code>) is a
+          <em>property</em> and <em>value</em>. The property in this example is
+          <code>font-family</code>, which controls what font you want to use.
+          The value is <code>"Gill Sans", sans-serif</code>, which tells the
+          browser, “I would like to use Gill Sans but if the user doesn’t have
+          it, use any sans-serif you have.” Note that a <code>;</code> goes at
+          the end of the property/value line.
+        </p>
+        <p>
+          You can add multiple properties to a rule. For example, let’s make the
+          width of our page more narrow so that users with wide screens don’t
+          have to follow the text all the way across the screen.
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">body</span> {
+    <span class="hljs-attribute">max-width</span>: <span class="hljs-number">500px</span>;
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Gill Sans"</span>, sans-serif;
+}
+</code></pre>
+        <p>
+          We just set the <code>max-width</code> property of the
+          <code>body</code> to be <code>500px</code>. That means the width of
+          our page will never exceed 500 pixels in width. Any text that would go
+          beyond that width will instead be wrapped around to the next line.
+        </p>
+        <p>
+          It doesn’t really matter what order the properties go in, but I have
+          my own preferences I tend to follow. The important thing is that,
+          whatever ordering scheme you decide on, you be consistent.
+        </p>
+        <p>
+          As you can probably imagine, there are quite a few properties that you
+          can use. In time, you will begin to remember the common ones offhand.
+          But if you aren’t sure what property you need or you just want to see
+          what’s available, check out the
+          <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference#Keyword_index"
+            >MDN CSS Reference</a
+          >
+          (it’s a long list, but remember that you only need a handful for
+          now—there’s no need to memorize this list.
+        </p>
+        <h2>Adding more styles to the page</h2>
+        <p>Let’s look at our styling progress up to now.</p>
+        <p>
+          <img
+            src="/assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website-1024x747.png"
+            alt="A screenshot of the webpage with the font changed and the body width narrowed, aligned toward the left side of the window."
+            class="alignnone size-large wp-image-77"
+            srcset="
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website-1024x747.png 1024w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website-300x219.png   300w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website-768x560.png   768w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website.png          1478w
+            "
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            width="1024"
+            height="747"
+          />
+        </p>
+        <p>
+          So far, so good. But we should probably make the page a bit more
+          centered so that people with wide screens don’t have to stare off to
+          the left side so much.
+        </p>
+        <p>
+          We’re going to use the <code>margin</code> property, which controls
+          the space around an element. Specifically, we’re using
+          <code>maring-left</code> and <code>margin-right</code>, like this:
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">body</span> {
+    <span class="hljs-attribute">margin-left</span>: auto;
+    <span class="hljs-attribute">margin-right</span>: auto;
+    <span class="hljs-attribute">max-width</span>: <span class="hljs-number">500px</span>;
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Gill Sans"</span>, sans-serif;
+}
+</code></pre>
+        <p>
+          We could have specified a pixel value here, but by using the
+          <code>auto</code> keyword, we’re telling the browser that we want an
+          even amount of margin to the left and right of the page. The result is
+          that the page is centered in the browser window.
+        </p>
+        <p>
+          <img
+            src="/assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website1-1024x747.png"
+            alt="Screenshot showing that the webpage is centered within the window."
+            class="alignnone size-large wp-image-76"
+            srcset="
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website1-1024x747.png 1024w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website1-300x219.png   300w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website1-768x560.png   768w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website1.png          1478w
+            "
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            width="1024"
+            height="747"
+          />
+        </p>
+        <p>Okay, cool. Let’s try changing some colors.</p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">body</span> {
+    <span class="hljs-attribute">margin-left</span>: auto;
+    <span class="hljs-attribute">margin-right</span>: auto;
+    <span class="hljs-attribute">max-width</span>: <span class="hljs-number">500px</span>;
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Gill Sans"</span>, sans-serif;
+    <span class="hljs-attribute">background-color</span>: antiquewhite;
+    <span class="hljs-attribute">color</span>: saddlebrown;
+}
+</code></pre>
+        <p>That will give us:</p>
+        <p>
+          <img
+            src="/assets/uploads/2020/01/Screen-Shot-2020-01-12-at-22.04.17-1024x747.png"
+            alt="Screenshot of webpage showing the colors applied."
+            class="alignnone size-large wp-image-81"
+            srcset="
+              /assets/uploads/2020/01/Screen-Shot-2020-01-12-at-22.04.17-1024x747.png 1024w,
+              /assets/uploads/2020/01/Screen-Shot-2020-01-12-at-22.04.17-300x219.png   300w,
+              /assets/uploads/2020/01/Screen-Shot-2020-01-12-at-22.04.17-768x560.png   768w,
+              /assets/uploads/2020/01/Screen-Shot-2020-01-12-at-22.04.17.png          1478w
+            "
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            width="1024"
+            height="747"
+          />
+        </p>
+        <p>
+          Woo hoo, colors! We’re setting the
+          <code>background-color</code> property, which defines the color of
+          empty space, the background of the page. We’re also setting
+          <code>color</code>, which controls the color of text on the page.
+        </p>
+        <p>
+          There are different ways to reference colors in CSS. We’re using color
+          keywords for ease of use. You can see the whole list of available
+          color keywords, as well as other ways to represent colors, on this
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value"
+            >MDN CSS color reference</a
+          >.
+        </p>
+        <p>
+          We’re not going to win any design awards for the color choices here,
+          but it’s my webpage and I can do what I want.
+          <sup id="fnref-67-2"
+            ><a href="#fn-67-2" class="jetpack-footnote">2</a></sup
+          >
+        </p>
+        <h2>Styling links</h2>
+        <p>
+          By default, links are blue. But that isn’t sitting well with with the
+          warm colors we chose. Let’s change it to something warmer.
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">a</span> {
+    <span class="hljs-attribute">color</span>: firebrick;
+}
+</code></pre>
+        <p>
+          We’re creating a new rule. We want to target all of the
+          <code>&lt;a&gt;</code> elements on the page. We can do that by using
+          <code>a</code> as the selector. Remember that
+          <code>color</code> controls the text color. We’ll make it a reddish
+          color.
+        </p>
+        <p>
+          For fun, let’s make it so that the color of the link changes when you
+          hover the mouse over it. We’ll need a new rule for this, with a
+          slightly different selector. We don’t want to target every link, only
+          the one the mouse is being hovered over. CSS has a special syntax for
+          selecting elements that are in a certain state, like being hovered
+          over.
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">a</span><span class="hljs-selector-pseudo">:hover</span> {
+    <span class="hljs-attribute">color</span>: crimson;
+}
+</code></pre>
+        <p>
+          This selector says, if a link is in the hover state, apply this rule.
+          In this example, we’re just changing the text color.
+        </p>
+        <h2>Meaning vs. appearance</h2>
+        <p>
+          Let’s make our navigation links sit horizontally in a row rather than
+          stacked in a bulleted list. Remember, our list of links looks like
+          this:
+        </p>
+        <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"index.html"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"journal.html"</span>&gt;</span>Journal<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+        <p>
+          You might think, “Well if I don’t want a bulleted list, I’ll just
+          change the HTML.” But in this case, we aren’t changing the meaning of
+          the menu—it is still a list of links. It’s just that we’re changing
+          the way it looks by tweaking the layout and removing the bullets.
+        </p>
+        <p>
+          So we’ll keep the HTML the way it is. But we’ll add some CSS to change
+          the appearance.
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">ul</span> {
+    <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">list-style</span>: none;
+}
+</code></pre>
+        <p>
+          First, we’ll target the list as a whole. We’ll set
+          <code>padding-left</code> to <code>0</code> to remove the indentation
+          (padding is similar to margin, but we’ll discuss the difference
+          later). You can use <code>list-style</code> to change the bullet type,
+          but we’re setting it to <code>none</code> so that the bullets are
+          removed altogether.
+        </p>
+        <p>
+          Next, we’ll target the individual <em>list items</em>, or
+          <code>&lt;li&gt;</code> elements.
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">li</span> {
+    <span class="hljs-attribute">display</span>: inline-block;
+    <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">15px</span>;
+}
+</code></pre>
+        <p>
+          Setting the <code>display</code> property to
+          <code>inline-block</code> will cause the list items to sit next to
+          each other in a row. We’ll add a little <code>margin-right</code> to
+          the list items so that they are spaced apart nicely.
+        </p>
+        <p>But notice, there’s a problem:</p>
+        <p>
+          <img
+            src="/assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website2-1024x747.png"
+            alt="Screenshot of webpage showing the menu links sitting horizontally in a row. The page has two other lists which are now also sitting horizontally without bullets."
+            class="alignnone size-large wp-image-75"
+            srcset="
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website2-1024x747.png 1024w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website2-300x219.png   300w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website2-768x560.png   768w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website2.png          1478w
+            "
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            width="1024"
+            height="747"
+          />
+        </p>
+        <p>
+          By attempting to style our menu list, we inadvertently styled
+          <em>all</em> of our lists. We don’t want that. But how do we target
+          <em>only</em> the menu list? We can give it a name.
+        </p>
+        <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"menu"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"index.html"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"journal.html"</span>&gt;</span>Journal<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+        <p>
+          We can give any element the <code>class</code> attribute to give it
+          one or more names (separated by spaces) that we can use in our CSS.
+          Let’s adjust our CSS to use the new name.
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-class">.menu</span> {
+    <span class="hljs-attribute">padding-left</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">list-style</span>: none;
+}
+</code></pre>
+        <p>
+          We changed the <code>ul</code> selector to <code>.menu</code>. When
+          using class names in CSS, we start them with a dot.
+        </p>
+        <p>We can use this same name to target our list items.</p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-class">.menu</span> <span class="hljs-selector-tag">li</span> {
+    <span class="hljs-attribute">display</span>: inline-block;
+    <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">15px</span>;
+}
+</code></pre>
+        <p>
+          This selector is saying, “target all list items that are inside an
+          element with the class name of <em>menu</em>.”
+        </p>
+        <p>
+          Now that both of our rules are specifically targeting the
+          <code>menu</code> class name, our regular lists have reverted back to
+          their original look.
+        </p>
+        <p>
+          <img
+            src="/assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website3-1024x747.png"
+            alt="Screenshot of the webpage showing the menu as a horizontal list without affecting the other lists on the page."
+            class="alignnone size-large wp-image-74"
+            srcset="
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website3-1024x747.png 1024w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website3-300x219.png   300w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website3-768x560.png   768w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website3.png          1478w
+            "
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            width="1024"
+            height="747"
+          />
+        </p>
+        <h2>Styling the site header</h2>
+        <p>
+          Let’s do something fun with the site header. Hopefully you are
+          starting to get the idea of how these CSS rules work—first you specify
+          a selector, then a list of properties you want to change. This article
+          is already getting long, so I’ll just drop in the code rather than
+          describe each property. I encourage you to play around with the values
+          to see how they work.
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">h1</span> {
+    <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">10px</span>;
+    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">18px</span>;
+    <span class="hljs-attribute">font-weight</span>: normal;
+    <span class="hljs-attribute">text-transform</span>: uppercase;
+    <span class="hljs-attribute">letter-spacing</span>: <span class="hljs-number">1px</span>;
+    <span class="hljs-attribute">background-color</span>: saddlebrown;
+    <span class="hljs-attribute">color</span>: antiquewhite;
+}
+</code></pre>
+        <p>This code produces the following look.</p>
+        <p>
+          <img
+            src="/assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website4-1024x747.png"
+            alt="Screenshot of the webpage. The main heading now appears inside of a dark box with light, all-caps text."
+            class="alignnone size-large wp-image-73"
+            srcset="
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website4-1024x747.png 1024w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website4-300x219.png   300w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website4-768x560.png   768w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website4.png          1478w
+            "
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            width="1024"
+            height="747"
+          />
+        </p>
+        <p>
+          One thing I want to point out—this rule demonstrates the difference
+          between padding and margin. I gave <code>&lt;h1&gt;</code> some
+          padding to provide some space within its box, to give the text a
+          little <em>padding</em> between it and the edge of the box. On the
+          other hand, margin controls the space around the <em>outside</em> of
+          the box.
+        </p>
+        <p>
+          I really want the <code>&lt;h1&gt;</code> to touch the top of the
+          viewport, but, by default, there’s a little margin all around the
+          <code>&lt;body&gt;</code>. We’ll go back and modify our body rule to
+          get rid of the top margin.
+        </p>
+        <pre><code class="language-css hljs"> <span class="hljs-selector-tag">body</span> {
+    <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
+    <span class="hljs-attribute">margin-left</span>: auto;
+    <span class="hljs-attribute">margin-right</span>: auto;
+    <span class="hljs-attribute">max-width</span>: <span class="hljs-number">500px</span>;
+    <span class="hljs-attribute">font-family</span>: <span class="hljs-string">"Gill Sans"</span>, sans-serif;
+    <span class="hljs-attribute">background-color</span>: antiquewhite;
+    <span class="hljs-attribute">color</span>: saddlebrown;
+}
+</code></pre>
+        <p>
+          There we go. Our
+          <a href="https://able-dev-example-css.netlify.com/">homepage</a> is
+          looking good.
+        </p>
+        <h2>Reusing CSS across different pages</h2>
+        <p>
+          We would like to apply all of the styles we wrote for the homepage to
+          our journal page. One way to do that is to copy and paste our
+          <code>&lt;style&gt;</code> tag and all its contents to
+          <code>journal.html</code>. That would work, but what if we decide to
+          make a change, such as choosing a different color for links? We would
+          probably want to change the link color on both the homepage
+          <em>and</em> the journal. That means editing two different files.
+          Making changes would become more and more difficult for each
+          additional page we add to our site.
+        </p>
+        <p>
+          Fortunately, there’s a better way. We’ll use an external style sheet.
+          We’ll take all of our CSS out of <code>index.html</code> and put it
+          into a separate file. Then we’ll make both the homepage and journal
+          reference that file.
+        </p>
+        <p>
+          First create a separate file and name it <code>style.css</code> (you
+          can name it whatever you like so long as it ends in
+          <code>.css</code>). Then copy everything between the
+          <code>&lt;style&gt;</code> and <code>&lt;/style&gt;</code> tags (but
+          not the tags themselves) and paste it into your new CSS file.
+        </p>
+        <p>
+          Next, edit <code>index.html</code> by adding a
+          <code>&lt;link&gt;</code> tag to the <code>&lt;head&gt;</code>:
+        </p>
+        <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>My awesome website<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"style.css"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+</code></pre>
+        <p>
+          This bit of code <em>links</em> your HTML file with your CSS file. Now
+          <code>index.html</code> knows that you have CSS rules that it should
+          use in <code>style.css</code>.
+        </p>
+        <p>
+          Go ahead and make the same change to <code>journal.html</code>. Once
+          you do, the journal page should be receiving all of your custom
+          styles.
+        </p>
+        <p>
+          <img
+            src="/assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website5-1024x747.png"
+            alt="Screenshot of the Journal page. The text and color styles from the homepage have also been applied to this page."
+            class="alignnone size-large wp-image-72"
+            srcset="
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website5-1024x747.png 1024w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website5-300x219.png   300w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website5-768x560.png   768w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website5.png          1478w
+            "
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            width="1024"
+            height="747"
+          />
+        </p>
+        <h2>Styling articles</h2>
+        <p>
+          Let’s spruce up our blog article by making it appear on a white card.
+          Add this rule to <code>style.css</code>:
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">article</span> {
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff</span>;
+}
+</code></pre>
+        <p>
+          That’s nice. But why is there so much space above the heading? It’s
+          because the <code>&lt;h2&gt;</code> has top margin by default. But we
+          can remove it.
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">article</span> <span class="hljs-selector-tag">h2</span> {
+    <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">0</span>;
+}
+</code></pre>
+        <p>
+          This rule is targeting every <code>&lt;h2&gt;</code> that appears
+          inside an <code>&lt;article&gt;</code> and removing its top margin.
+        </p>
+        <p>That’s looking better.</p>
+        <p>
+          <img
+            src="/assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website6-1024x747.png"
+            alt="Screenshot of the Journal page. Its one article now it appears on a white card."
+            class="alignnone size-large wp-image-71"
+            srcset="
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website6-1024x747.png 1024w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website6-300x219.png   300w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website6-768x560.png   768w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website6.png          1478w
+            "
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            width="1024"
+            height="747"
+          />
+        </p>
+        <p>
+          Let’s update our journal by adding another article. It should
+          automatically receive the correct styles so long as we use the same
+          HTML structure.
+        </p>
+        <p>
+          Blog articles usually appear with the newest ones first, so let’s add
+          another article right above the first one.
+        </p>
+        <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">article</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>My second entry<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">time</span> <span class="hljs-attr">datetime</span>=<span class="hljs-string">"2020-01-12"</span>&gt;</span>January 12, 2020<span class="hljs-tag">&lt;/<span class="hljs-name">time</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>I added some CSS to my website. It’s very stylish.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">article</span>&gt;</span>
+</code></pre>
+        <p>
+          It received the styles but something isn’t right—the cards are
+          touching, causing them to appear like one giant card.
+        </p>
+        <p>
+          <img
+            src="/assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website7-1024x747.png"
+            alt="Screenshot of the journal page with a second article added."
+            class="alignnone size-large wp-image-70"
+            srcset="
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website7-1024x747.png 1024w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website7-300x219.png   300w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website7-768x560.png   768w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website7.png          1478w
+            "
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            width="1024"
+            height="747"
+          />
+        </p>
+        <p>
+          Not to worry, we can add some bottom margin to each article. Adjust
+          the <code>article</code> rule like so:
+        </p>
+        <pre><code class="language-css hljs"><span class="hljs-selector-tag">article</span> {
+    <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">padding</span>: <span class="hljs-number">20px</span>;
+    <span class="hljs-attribute">background</span>: <span class="hljs-number">#fff</span>;
+}
+</code></pre>
+        <p>Which produces:</p>
+        <p>
+          <img
+            src="/assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website8-1024x747.png"
+            alt="Screenshot of the Journal page. The two article cards now have vertical space between them."
+            class="alignnone size-large wp-image-69"
+            srcset="
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website8-1024x747.png 1024w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website8-300x219.png   300w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website8-768x560.png   768w,
+              /assets/uploads/2020/01/Screenshot_2020-01-12-My-awesome-website8.png          1478w
+            "
+            sizes="(max-width: 1024px) 100vw, 1024px"
+            width="1024"
+            height="747"
+          />
+        </p>
+        <p>
+          Much better. One last issue. Our menu appears to have lost its
+          horizontal styling. That’s because we need to add the
+          <code>menu</code> class name to our menu list. Make the following
+          adjustment in <code>journal.html</code>.
+        </p>
+        <pre><code class="language-html hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"menu"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"index.html"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"journal.html"</span>&gt;</span>Journal<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+        <p>
+          Looks great! You can check out the final
+          <a href="https://able-dev-example-css.netlify.com/journal.html"
+            >journal page here</a
+          >.
+        </p>
+        <h2>Publishing your changes</h2>
+        <p>
+          Head back into your Netlify dashboard and go to the
+          <em>Deploys</em> tab. At the bottom of the page you will see a box
+          where you can drag and drop your website folder (just make sure you’ve
+          saved all the files).
+        </p>
+        <p>
+          That’s it! Your website should have been updated to reflect the latest
+          changes.
+        </p>
+        <h2>Conclusion and bonus challenge</h2>
+        <p>
+          If you have followed all the way through, you deserve a cookie and a
+          pat on the back! You not only created your own website from scratch
+          using HTML, you also made it look stylish by using CSS.
+        </p>
+        <p>
+          If you are thirsty for more, here’s a challenge for you. Adjust your
+          menu so that the current page is in bold and not linked (hint: you
+          could use a special class name).
+        </p>
+        <div class="footnotes">
+          <hr />
+          <ol>
+            <li id="fn-67-1">
+              Most web browser’s default to Times New Roman, which is a serif
+              font. There’s nothing wrong with Times New Roman, necessarily, but
+              many webpage authors will change it just because it
+              <em>is</em> the default font. If you want to go down the rabbit
+              hole of the art and science of typography&nbsp;—&nbsp;which I
+              totally recommend you do&nbsp;—&nbsp;check out
+              <a href="https://practicaltypography.com/"
+                >Butterick’s Practical Typography</a
+              >.&nbsp;<a href="#fnref-67-1">↩</a>
+            </li>
+            <li id="fn-67-2">
+              That said, if you want people to actually be able to read your
+              webpage, you want to choose background and foreground colors that
+              contrast well. You can use this
+              <a href="https://webaim.org/resources/contrastchecker/"
+                >color contrast checker</a
+              >
+              to make sure your text is easy to see.&nbsp;<a href="#fnref-67-2"
+                >↩</a
+              >
+            </li>
+          </ol>
+        </div>
+
+        <div class="author-bio">
+          <h2 class="author-title">About the author</h2>
+          <p>
+            Blake Watson is a web developer creating bugs at MRI Technologies.
+            He created Able Dev to promote programming and software development
+            as a career choice for people with disabilities. You can find him on
+            Twitter as
+            <a href="https://twitter.com/blakewatson">@blakewatson</a>.
+          </p>
+          <p class="author-url">
+            <a href="https://blakewatson.com/">Website</a>
+          </p>
+        </div>
+      </article>
+    </main>
+  </body>
+</html>
